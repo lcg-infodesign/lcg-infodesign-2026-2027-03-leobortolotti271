@@ -1,18 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#e4f5d6" />
+  <meta name="description" content="Una visualizzazione interattiva dei 100 fiumi più lunghi del mondo, organizzati per continente e codificati per temperatura media." />
+  <title>I fiumi del mondo</title>
+  <!-- New Cordial: Web Project Adobe Fonts -->
+  <link rel="stylesheet" href="https://use.typekit.net/pnb6pld.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="libraries/p5.min.js"></script>
+  <script src="libraries/p5.sound.min.js"></script>
+  <script src="sketch.js" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="header-copy">
+        <h1>I fiumi del mondo</h1>
+      </div>
+      <div class="header-index" aria-label="Numero di fiumi nel dataset">
+        <span class="index-number">100</span>
+        <span class="index-label">fiumi<br />mappati</span>
+      </div>
+    </header>
 
-    <title>Sketch</title>
+    <div class="content-grid">
+      <main class="visual-column">
+        <div class="visual-toolbar">
+          <span class="toolbar-caption">Un glifo = un fiume</span>
+          <span class="scroll-hint">Scorri per esplorare <span aria-hidden="true">↓</span></span>
+        </div>
+        <div id="canvas-holder" class="canvas-holder" aria-label="Visualizzazione radiale dei fiumi, raggruppati per continente"></div>
+        <div class="visual-footer">
+          <span>LA LUNGHEZZA SI LEGGE DAL CENTRO VERSO L'ESTERNO</span>
+          <span>100 DATA POINT · 7 CONTINENTI</span>
+        </div>
+      </main>
 
-    <link rel="stylesheet" type="text/css" href="style.css">
+      <aside class="info-rail" aria-label="Legenda e dettagli dei fiumi">
+        <section class="rail-card legend-card" aria-labelledby="legend-title">
+          <div class="card-heading">
+            <h2 id="legend-title">Temperatura media</h2>
+          </div>
+          <ul class="legend-list">
+            <li class="legend-item"><span class="legend-swatch" style="--swatch:#ea2828"></span><span>Oltre 21 °C</span><span class="legend-arrow">↗</span></li>
+            <li class="legend-item"><span class="legend-swatch" style="--swatch:#930046"></span><span>Da 11 a 20 °C</span><span class="legend-arrow">↗</span></li>
+            <li class="legend-item"><span class="legend-swatch" style="--swatch:#4e0084"></span><span>Da 1 a 10 °C</span><span class="legend-arrow">↗</span></li>
+            <li class="legend-item"><span class="legend-swatch" style="--swatch:#1000bd"></span><span>0 °C e sotto</span><span class="legend-arrow">↗</span></li>
+          </ul>
+          <div class="length-key">
+            <span class="length-key-title">Lunghezza del fiume</span>
+            <div class="length-key-graphic" aria-hidden="true"><span class="length-hub"></span><span class="length-ray"></span><span class="length-end"></span></div>
+            <div class="length-key-labels"><span>Più corto</span><span>Più lungo</span></div>
+          </div>
+        </section>
 
-    <script src="libraries/p5.min.js"></script>
-    <script src="libraries/p5.sound.min.js"></script>
-  </head>
+        <section class="rail-card detail-card" id="river-card" aria-labelledby="detail-title" aria-live="polite">
+          <div class="card-heading">
+            <h2 id="detail-title">Scheda del fiume</h2>
+          </div>
+          <div id="empty-state" class="empty-state">
+            <p>Seleziona un fiume nella visualizzazione per consultarne i dati.</p>
+          </div>
+          <div id="river-details" class="river-details" hidden>
+            <div class="river-title-row">
+              <span id="river-continent" class="continent-name">Continente</span>
+            </div>
+            <h3 id="river-name">Nome del fiume</h3>
+            <div class="detail-metrics">
+              <div class="metric metric-temperature">
+                <span class="metric-label">Temperatura media</span>
+                <strong id="river-temperature">—</strong>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Lunghezza</span>
+                <strong id="river-length">—</strong>
+                <span class="metric-unit">km</span>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Portata</span>
+                <strong id="river-discharge">—</strong>
+                <span class="metric-unit">m³/s</span>
+              </div>
+            </div>
+            <div class="extra-details">
+              <div><span>Bacino idrografico</span><strong id="river-area">—</strong></div>
+              <div><span>Paesi attraversati</span><strong id="river-countries">—</strong></div>
+            </div>
+            <button id="clear-selection" class="clear-button" type="button">Deseleziona il fiume <span aria-hidden="true">×</span></button>
+          </div>
+        </section>
 
-  <body>
-    <script src="sketch.js"></script>
-  </body>
+      </aside>
+    </div>
+    <footer class="page-footer">
+      <span>ATLANTE FLUVIALE / VISUALIZZAZIONE INTERATTIVA</span>
+      <span>ESPLORA · CONFRONTA · DECODIFICA</span>
+    </footer>
+  </div>
+</body>
 </html>
